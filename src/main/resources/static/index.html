@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lets Play Mancala</title>
+    <link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/main.css" rel="stylesheet">
+    
+    <script src="/webjars/jquery/jquery.min.js"></script>
+    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
+	
+    <script src="/app.js"></script>
+    
+</head>
+<body>
+<noscript><h2 style="color: #ff0000">Seems your browser doesn't support Javascript! Websocket relies on Javascript being
+    enabled. Please enable
+    Javascript and reload this page!</h2></noscript>
+<div id="main-content" class="container">
+    <div class="col-md-6">
+        <form class="form-inline">
+        	<div class="form-group">
+                <label id="name-label" for="name">What is your name?</label>
+                <input type="text" id="name" class="form-control" placeholder="Your name here...">
+                <button id="send" class="btn btn-default" type="submit">Connect To Game</button>
+            </div>
+        </form>
+    </div>
+
+    
+    <div class="row">
+        <div class="col-md-12">
+            <table id="conversation" class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Greetings</th>
+                </tr>
+                </thead>
+                <tbody id="greetings">
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <div id="gameplay-area" class="row">
+	    <table width="100%" border="1" bgcolor="#ffffff">
+		<!--    <colgroup>-->
+		<!--        <col width="5%"><col width="5%">-->
+		<!--        <col width="5%"><col width="5%">-->
+		<!--        <col width="5%"><col width="5%">-->
+		<!--        <col width="5%"><col width="5%">-->
+		<!--        <col width="5%"><col width="5%">-->
+		<!--        <col width="5%"><col width="5%">-->
+		<!--        <col width="5%"><col width="5%">-->
+		<!--        <col width="5%"><col width="5%">-->
+		<!--        <col width="5%"><col width="5%">-->
+		<!--        <col width="5%"><col width="5%">-->
+		<!--    </colgroup>-->
+		    <tr>
+		        <td colspan=5 rowspan=2>pit1</td>
+		        <td id="cella1"><a href="#">4 stones</a></td>
+		        <td><a href="#">cella2</a></td>
+		        <td>cella3</td>
+		        <td>cella4</td>
+		        <td>cella5</td>
+		        <td>cella6</td>
+		        <td colspan=5 rowspan=2>pit2</td>
+		    </tr>
+		    <tr>
+		        <td>cellb1</td>
+		        <td>cellb2</td>
+		        <td>cellb3</td>
+		        <td>cellb4</td>
+		        <td>cellb5</td>
+		        <td>cellb6</td>
+		    </tr>
+		<!--    <tr>-->
+		<!--        <td colspan=10>50</td>-->
+		<!--        <td colspan=6>30</td>-->
+		<!--        <td colspan=4>20</td>-->
+		<!--    </tr>-->
+		</table>
+    </div>
+</div>
+
+</div>
+
+
+</body>
+</html>
