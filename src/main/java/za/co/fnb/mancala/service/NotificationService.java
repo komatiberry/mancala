@@ -14,6 +14,9 @@ public class NotificationService {
 
 	public void notify(String message, String sessionId) {
 		messagingTemplate.convertAndSendToUser(sessionId, "/queue/notify", message, createHeaders(sessionId));
+		
+		//TODO split once ready
+		messagingTemplate.convertAndSendToUser(sessionId, "/queue/gameupdate", message + " tooooooooooooooooooo", createHeaders(sessionId));
 		return;
 	}
 

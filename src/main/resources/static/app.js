@@ -31,9 +31,18 @@ function connect() {
 			stompClient.subscribe('/user/queue/notify', function(
 					notification) {
 				// Call the notify function when receive a notification
-				showUpdate(notification.body);
+				showNotificationUpdate(notification.body);
 		
 			});
+			
+			//client will subscribe for updates on this endpoint
+			stompClient.subscribe('/user/queue/gameupdate', function(
+					notification) {
+				// Call the notify function when receive a notification
+				showGameUpdate(notification.body);
+		
+			});
+			
 			//App should register itself by calling this method
 			register(sessionId, name);
 			
@@ -89,14 +98,33 @@ function sendName() {
 
 }
 
-function showUpdate(message) {
+function showNotificationUpdate(message) {
 	const element = document.getElementById("message");
     if (element) { element.remove(); }
-    var text = document.createTextNode("some text");
-    const elementTwo = document.getElementById("cella1");
-    if (elementTwo) { elementTwo.textContent= message; }
-//    elementTwo.appendChild(text);
+    
     $("#greetings").append("<tr id=\"message\"><td>" + message + "</td></tr>");
+}
+
+function showGameUpdate(message) {
+//	const element = document.getElementById("message");
+//    if (element) { element.remove(); }
+//    var text = document.createTextNode("some text");
+    const elementOne = document.getElementById("cella1");
+    
+    const elementTwo = document.getElementById("cella1b");
+    if (elementTwo) { elementTwo.remove(); }
+
+	if (elementOne) {    	
+    	var a = document.createElement('a');
+		a.setAttribute('href','play?cella1');
+		a.setAttribute('id','cella1b');
+//		a.setAttribute('id','cella1b');
+		a.textContent = message;
+//		a.innerHTML = message;
+    	elementOne.appendChild(a)
+	}
+    
+//    $("#greetings").append("<tr id=\"message\"><td>" + message + "</td></tr>");
 }
 
 //when the window gets closed
