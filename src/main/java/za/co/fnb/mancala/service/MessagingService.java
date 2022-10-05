@@ -7,8 +7,14 @@ import org.springframework.messaging.simp.SimpMessageType;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 
-import za.co.fnb.mancala.controllers.GameState;
+import za.co.fnb.mancala.dto.GameStateUpdate;
 
+/**
+ * WebSocket workhorse for sending updates to frontend.
+ * Notify messages are "info" types.
+ * GameUpdate for game state.
+ *
+ */
 @Service
 public class MessagingService {
 	@Autowired
@@ -18,7 +24,7 @@ public class MessagingService {
 		messagingTemplate.convertAndSendToUser(sessionId, "/queue/notify", message, createHeaders(sessionId));
 	}
 	
-	public void gameUpdate(String sessionId, GameState gameState) {
+	public void gameUpdate(String sessionId, GameStateUpdate gameState) {
 		messagingTemplate.convertAndSendToUser(sessionId, "/queue/gameupdate", gameState, createHeaders(sessionId));
 		return;
 	}

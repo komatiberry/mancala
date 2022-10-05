@@ -18,7 +18,7 @@ public class SpringConfig {
 	CurrentPlayers currentPlayers;
 	
 	@PostConstruct
-    @Scheduled(fixedRate = 10000)
+    @Scheduled(fixedRate = 10000) //10 seconds could be too often?
 	public void matchPlayers() {
 		log.info("checking for orphaned players");
 		currentPlayers.matchOrphanPlayers();
@@ -27,4 +27,5 @@ public class SpringConfig {
 	//TODO 
 	// create scheduled task to check for stale players
 		//if still connected ask them to make a move etc....
+		// and remove them after repeated warnings.
 }

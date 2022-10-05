@@ -11,6 +11,11 @@ import lombok.extern.slf4j.Slf4j;
 import za.co.fnb.mancala.controllers.GamesController;
 import za.co.fnb.mancala.service.MessagingService;
 
+/**
+ * Handles session/player management.
+ * Technically more than just a Data object.
+ * Needs some love.
+ */
 @Component
 @Slf4j
 public class CurrentPlayers {

@@ -12,8 +12,15 @@ import za.co.fnb.mancala.board.GameBoard;
 import za.co.fnb.mancala.board.Pit;
 import za.co.fnb.mancala.config.GameConstants;
 import za.co.fnb.mancala.controllers.data.Player;
+import za.co.fnb.mancala.dto.GameStateUpdate;
 import za.co.fnb.mancala.service.MessagingService;
 
+/**
+ * This class controls the game play for all game sessions.
+ * It needs a refactoring - especially the "playMove" method which does not exhibit "clean code".
+ * But it works. Needs to be more readable.
+ *
+ */
 @Service
 @Slf4j
 public class GamesController {
@@ -26,7 +33,7 @@ public class GamesController {
 	MessagingService messagingService;
 	
 	@Autowired
-	CircularBoardGuide guide; //TODO make it a static class?
+	CircularBoardGuide guide;
 	
 	public void addNewGame(Player playerA, Player playerB) {
 		String gameKey = playerA.getSessionId() + playerB.getSessionId();
@@ -40,7 +47,7 @@ public class GamesController {
 
 	private void initialState(GameBoard gameBoard) {
 		//send initial state to players
-		GameState gameStateA = new GameState();
+		GameStateUpdate gameStateA = new GameStateUpdate();
 		for (Pit pit : gameBoard.getPits().values()) {
 			gameStateA.getPits().add(pit);
 	    }
@@ -48,7 +55,7 @@ public class GamesController {
 		messagingService.gameUpdate(gameBoard.getPlayerA().getSessionId(), gameStateA);
 		messagingService.notify(gameBoard.getPlayerA().getSessionId(), "Opponent found! Opponent's name is " + gameBoard.getPlayerB().getPlayerName() + ", you're Player A - make your move.");
 		
-		GameState gameStateB = new GameState();
+		GameStateUpdate gameStateB = new GameStateUpdate();
 		for (Pit pit : gameBoard.getPits().values()) {
 			gameStateB.getPits().add(pit);
 	    }
@@ -78,7 +85,7 @@ public class GamesController {
 		
 		//zero out left over player's board
 		GameBoard tempBoard = new GameBoard(null, null);
-		GameState gameState = new GameState();
+		GameStateUpdate gameState = new GameStateUpdate();
 		for (Pit pit : tempBoard.getPits().values()) {
 			gameState.getPits().add(pit);
 	    }
@@ -110,9 +117,10 @@ public class GamesController {
 		}
 	}
 
-	//TODO clean up this code
-	//TODO add tests
-	//TODO show every turn
+	//TODO clean up this code - a refactor is highly needed
+	//TODO show every turn - i.e. update browsers showing the progression of the pieces
+		//all that is needed to send an update on turn of the while loop with all pits set to "unplayable"
+		//which was the original idea - but time.......
 	public void playMove(String playerSessionId, String pitPlayed) {
 		GameBoard board = games.get(findGameKey(playerSessionId));
 		Pit currentPit = board.getPits().get(pitPlayed);
@@ -172,13 +180,13 @@ public class GamesController {
 					}
 				}
 			}
-		} //end while
-		
+						
+		} //end while		
 		
 		//TODO fold both loops into one
 		//update A's state
 		boolean allZero = true;
-		GameState gameStateA = new GameState();
+		GameStateUpdate gameStateA = new GameStateUpdate();
 		for (Pit pit : board.getPits().values()) {
 			//check win condition
 			if (pit.getId().startsWith("A") && pit.getNumberOfStones() > 0
@@ -209,7 +217,7 @@ public class GamesController {
 		
 		//update B's state
 		allZero = true;
-		GameState gameStateB = new GameState();
+		GameStateUpdate gameStateB = new GameStateUpdate();
 		for (Pit pit : board.getPits().values()) {
 			//check win condition
 			if (pit.getId().startsWith("B") && pit.getNumberOfStones() > 0
@@ -249,7 +257,7 @@ public class GamesController {
 		} catch (InterruptedException e1) {}
 		
 		killGame(loser.getSessionId());
-		
+		//TODO test that this works correctly
 		addNewGame(winner, loser);
 	}
 }

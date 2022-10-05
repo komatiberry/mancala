@@ -11,11 +11,15 @@ import za.co.fnb.mancala.controllers.data.CurrentPlayers;
 import za.co.fnb.mancala.dto.RegistrationMessage;
 import za.co.fnb.mancala.service.MessagingService;
 
+/**
+ * This class listens to WebSocket messages from the client - which in this implementation uses Stomp protocol.
+ *
+ */
 @Controller
 public class MessagingController {
 	
 	@Autowired
-	private MessagingService notificationService;
+	private MessagingService messagingService;
 
 	@Autowired
 	private CurrentPlayers currentPlayers;
@@ -29,7 +33,7 @@ public class MessagingController {
 		currentPlayers.addSession(registrationMessage.getSessionId(), registrationMessage.getName());
 		
 		//send register notification
-		notificationService.notify(registrationMessage.getSessionId(), "You're registered, looking for an opponent.");			
+		messagingService.notify(registrationMessage.getSessionId(), "You're registered, looking for an opponent.");			
 	}
 
 	@MessageMapping("/unregister")

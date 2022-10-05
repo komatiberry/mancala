@@ -8,6 +8,10 @@ import org.springframework.stereotype.Component;
 import lombok.extern.slf4j.Slf4j;
 import za.co.fnb.mancala.config.GameConstants;
 
+/**
+ * This class helps to navigate the "board" which is implemented as a Map
+ *
+ */
 @Component
 //@Scope("singleton") //components are singleton by default
 @Slf4j
@@ -60,7 +64,7 @@ public final class CircularBoardGuide {
 	}	
 	
 	public String getOppositePitKey(String k) {
-		//quick and dirty, not clever but not buggy
+		//quick and dirty, not clever - but not buggy
 		if (k.equalsIgnoreCase(GameConstants.PIT_A1)) { return GameConstants.PIT_B6; }
 		if (k.equalsIgnoreCase(GameConstants.PIT_A2)) { return GameConstants.PIT_B5; }
 		if (k.equalsIgnoreCase(GameConstants.PIT_A3)) { return GameConstants.PIT_B4; }

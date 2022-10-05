@@ -1,6 +1,6 @@
 package za.co.fnb.mancala.config;
 
-public class GameConstants {
+public final class GameConstants {
 	public static final String PIT_A1 = "A1";
 	public static final String PIT_A2 = "A2";
 	public static final String PIT_A3 = "A3";
@@ -20,7 +20,8 @@ public class GameConstants {
 	
 	public static final String HOME_PIT_IDENTIFIER = "HOME";
 		
-	public static final int DEFAULT_NUMBER_OF_STONES = 1;
+	public static final int DEFAULT_NUMBER_OF_STONES = 6; //change this for quicker testing
 
+	//work around for lack of Javascript knowledge
 	public static final String PIT_SESSION_DEMARK = "---";
 }

@@ -1,17 +1,9 @@
+//Please be gentle with what you see here - its butt ugly
+//mostly hacked from other people's code
+// Needs some better understanding of jquery
+
 var stompClient = null;
 var sessionId = null;
-
-//function setConnected(connected) {
-//    $("#connect").prop("disabled", connected);
-//    $("#disconnect").prop("disabled", !connected);
-//    if (connected) {
-//        $("#conversation").show();
-//    }
-//    else {
-//        $("#conversation").hide();
-//    }
-//    $("#greetings").html("");
-//}
 
 function connect() {
 	var name = $("#name").val();
@@ -27,7 +19,7 @@ function connect() {
 			sessionId = urlarray[index];
 			$('#sessionIdLabel').html(sessionId);
 			
-			//client will subscribe for updates on this endpoint
+			//client will subscribe for message updates on this endpoint
 			stompClient.subscribe('/user/queue/notify', function(
 					notification) {
 				// Call the notify function when receive a notification
@@ -35,7 +27,7 @@ function connect() {
 		
 			});
 			
-			//client will subscribe for updates on this endpoint
+			//client will subscribe for game updates on this endpoint
 			stompClient.subscribe('/user/queue/gameupdate', function(
 					notification) {
 				// Call the notify function when receive a notification
@@ -43,10 +35,9 @@ function connect() {
 		
 			});
 			
-			//App should register itself by calling this method
+			//app should register itself by calling this method
 			register(sessionId, name);
 			
-					//TODO remove below once done
 			var message = {
 				"sessionId" : sessionId,
 				"name": $("#name").val()
@@ -67,7 +58,6 @@ function connect() {
     } else { 
 		alert("Please enter your name!" );
 	} 
-
 }
 
 function register(sessionId, name) {
@@ -95,7 +85,6 @@ function sendName() {
     } else { 
 		alert("Please enter your name!" );
 	} 
-
 }
 
 function showNotificationUpdate(message) {
@@ -110,7 +99,6 @@ function showGameUpdate(gameState) {
 	for (let i in gs.pits) {
 		updatePit(gs.pits[i]);
 	} 
-
 }
 
 function updatePit(pitData) {
@@ -120,6 +108,7 @@ function updatePit(pitData) {
 		$("#" + pitData.id).empty(); 
 
 		if (pitData.playable === true) {
+			//if playbale make it a button (else its a label)
             // TODO find a better way than "---"
 			$("#" + pitData.id).wrapInner('<input id=' + sessionId + '---' + pitData.id +' onclick=playMove(this) type=button value=' + pitData.numberOfStones +' class=button button1/>');
 		} else {
@@ -129,14 +118,13 @@ function updatePit(pitData) {
 }
 
 function playMove(x) {
-	console.log(x.id);
-	var stringMessage = JSON.stringify(x.id);
+//	console.log(x.id);
 	stompClient.send("/app/playmove", {}, x.id);
 }
 
 //when the window gets closed
 window.onbeforeunload = function(e) {
-	// Call this method when logging off also
+	// TODO Call this method when logging off (when adding a logoff button)
 	unregister(sessionId);
 };
 
@@ -153,7 +141,5 @@ $(function () {
     $("form").on('submit', function (e) {
         e.preventDefault();
     });
-//    $( "#connect" ).click(function() { connect(); });
-
     $( "#send" ).click(function() { connect(); });
 });
