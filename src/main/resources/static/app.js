@@ -1,17 +1,17 @@
 var stompClient = null;
 var sessionId = null;
 
-function setConnected(connected) {
-    $("#connect").prop("disabled", connected);
-    $("#disconnect").prop("disabled", !connected);
-    if (connected) {
-        $("#conversation").show();
-    }
-    else {
-        $("#conversation").hide();
-    }
-    $("#greetings").html("");
-}
+//function setConnected(connected) {
+//    $("#connect").prop("disabled", connected);
+//    $("#disconnect").prop("disabled", !connected);
+//    if (connected) {
+//        $("#conversation").show();
+//    }
+//    else {
+//        $("#conversation").hide();
+//    }
+//    $("#greetings").html("");
+//}
 
 function connect() {
 	var name = $("#name").val();
@@ -102,29 +102,36 @@ function showNotificationUpdate(message) {
 	const element = document.getElementById("message");
     if (element) { element.remove(); }
     
-    $("#greetings").append("<tr id=\"message\"><td>" + message + "</td></tr>");
+    $("#messages").append("<tr id=\"message\"><td>" + message + "</td></tr>");
 }
 
-function showGameUpdate(message) {
-//	const element = document.getElementById("message");
-//    if (element) { element.remove(); }
-//    var text = document.createTextNode("some text");
-    const elementOne = document.getElementById("cella1");
-    
-    const elementTwo = document.getElementById("cella1b");
-    if (elementTwo) { elementTwo.remove(); }
+function showGameUpdate(gameState) {
+	const gs = JSON.parse(gameState);
+	for (let i in gs.pits) {
+		updatePit(gs.pits[i]);
+	} 
 
-	if (elementOne) {    	
-    	var a = document.createElement('a');
-		a.setAttribute('href','play?cella1');
-		a.setAttribute('id','cella1b');
-//		a.setAttribute('id','cella1b');
-		a.textContent = message;
-//		a.innerHTML = message;
-    	elementOne.appendChild(a)
+}
+
+function updatePit(pitData) {
+	const pit = document.getElementById(pitData.id);
+
+	if (pit) {
+		$("#" + pitData.id).empty(); 
+
+		if (pitData.playable === true) {
+            // TODO find a better way than "---"
+			$("#" + pitData.id).wrapInner('<input id=' + sessionId + '---' + pitData.id +' onclick=playMove(this) type=button value=' + pitData.numberOfStones +' class=button button1/>');
+		} else {
+			$("#" + pitData.id).append(pitData.numberOfStones);
+		}
 	}
-    
-//    $("#greetings").append("<tr id=\"message\"><td>" + message + "</td></tr>");
+}
+
+function playMove(x) {
+	console.log(x.id);
+	var stringMessage = JSON.stringify(x.id);
+	stompClient.send("/app/playmove", {}, x.id);
 }
 
 //when the window gets closed
@@ -146,7 +153,7 @@ $(function () {
     $("form").on('submit', function (e) {
         e.preventDefault();
     });
-    $( "#connect" ).click(function() { connect(); });
+//    $( "#connect" ).click(function() { connect(); });
 
     $( "#send" ).click(function() { connect(); });
 });

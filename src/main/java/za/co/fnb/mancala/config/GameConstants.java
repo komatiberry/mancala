@@ -15,8 +15,12 @@ public class GameConstants {
 	public static final String PIT_B5 = "B5";
 	public static final String PIT_B6 = "B6";
 	
-	public static final int DEFAULT_NUMBER_OF_STONES = 6;
-	
 	public static final String PLAYER_A_HOME_PIT = "A-HOME";
 	public static final String PLAYER_B_HOME_PIT = "B-HOME";
+	
+	public static final String HOME_PIT_IDENTIFIER = "HOME";
+		
+	public static final int DEFAULT_NUMBER_OF_STONES = 1;
+
+	public static final String PIT_SESSION_DEMARK = "---";
 }

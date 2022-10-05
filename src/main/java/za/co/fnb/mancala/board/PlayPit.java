@@ -1,12 +1,8 @@
 package za.co.fnb.mancala.board;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+public class PlayPit extends Pit {
 
-@Data
-@AllArgsConstructor
-public class PlayPit {
-	private String id;
-	private boolean playable;
-	private int numberOfStones;
+	public PlayPit(String id, boolean playable, int numberOfStones) {
+		super(id, playable, numberOfStones);
+	}
 }

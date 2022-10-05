@@ -58,4 +58,23 @@ public final class CircularBoardGuide {
 			return circularList.get(0); //get the first one
 		}
 	}	
+	
+	public String getOppositePitKey(String k) {
+		//quick and dirty, not clever but not buggy
+		if (k.equalsIgnoreCase(GameConstants.PIT_A1)) { return GameConstants.PIT_B6; }
+		if (k.equalsIgnoreCase(GameConstants.PIT_A2)) { return GameConstants.PIT_B5; }
+		if (k.equalsIgnoreCase(GameConstants.PIT_A3)) { return GameConstants.PIT_B4; }
+		if (k.equalsIgnoreCase(GameConstants.PIT_A4)) { return GameConstants.PIT_B3; }
+		if (k.equalsIgnoreCase(GameConstants.PIT_A5)) { return GameConstants.PIT_B2; }
+		if (k.equalsIgnoreCase(GameConstants.PIT_A6)) { return GameConstants.PIT_B1; }
+
+		if (k.equalsIgnoreCase(GameConstants.PIT_B1)) { return GameConstants.PIT_A6; }
+		if (k.equalsIgnoreCase(GameConstants.PIT_B2)) { return GameConstants.PIT_A5; }
+		if (k.equalsIgnoreCase(GameConstants.PIT_B3)) { return GameConstants.PIT_A4; }
+		if (k.equalsIgnoreCase(GameConstants.PIT_B4)) { return GameConstants.PIT_A3; }
+		if (k.equalsIgnoreCase(GameConstants.PIT_B5)) { return GameConstants.PIT_A2; }
+		if (k.equalsIgnoreCase(GameConstants.PIT_B6)) { return GameConstants.PIT_A1; }	
+		
+		return "";
+	}
 }

@@ -5,18 +5,21 @@ import org.springframework.messaging.MessageHeaders;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.messaging.simp.SimpMessageType;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
-public class NotificationService {
+import za.co.fnb.mancala.controllers.GameState;
+
+@Service
+public class MessagingService {
 	@Autowired
 	private SimpMessagingTemplate messagingTemplate;
 
-	public void notify(String message, String sessionId) {
+	public void notify(String sessionId, String message) {
 		messagingTemplate.convertAndSendToUser(sessionId, "/queue/notify", message, createHeaders(sessionId));
-		
-		//TODO split once ready
-		messagingTemplate.convertAndSendToUser(sessionId, "/queue/gameupdate", message + " tooooooooooooooooooo", createHeaders(sessionId));
+	}
+	
+	public void gameUpdate(String sessionId, GameState gameState) {
+		messagingTemplate.convertAndSendToUser(sessionId, "/queue/gameupdate", gameState, createHeaders(sessionId));
 		return;
 	}
 

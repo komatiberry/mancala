@@ -31,12 +31,7 @@
     <div class="row">
         <div class="col-md-12">
             <table id="conversation" class="table table-striped">
-<!--                <thead>-->
-<!--                <tr>-->
-<!--                    <th>Greetings</th>-->
-<!--                </tr>-->
-<!--                </thead>-->
-                <tbody id="greetings">
+                <tbody id="messages">
                 </tbody>
             </table>
         </div>
@@ -44,42 +39,26 @@
     
     <div id="gameplay-area" class="row">
 	    <table width="100%" border="1" bgcolor="#ffffff">
-		<!--    <colgroup>-->
-		<!--        <col width="5%"><col width="5%">-->
-		<!--        <col width="5%"><col width="5%">-->
-		<!--        <col width="5%"><col width="5%">-->
-		<!--        <col width="5%"><col width="5%">-->
-		<!--        <col width="5%"><col width="5%">-->
-		<!--        <col width="5%"><col width="5%">-->
-		<!--        <col width="5%"><col width="5%">-->
-		<!--        <col width="5%"><col width="5%">-->
-		<!--        <col width="5%"><col width="5%">-->
-		<!--        <col width="5%"><col width="5%">-->
-		<!--    </colgroup>-->
-		    <tr>
-		        <td colspan=5 rowspan=2>pit1</td>
-		        <td id="cella1"><a id="cella1b" href="www.google.com">4 stones</a></td>
-		        <td><a href="#">cella2</a></td>
-		        <td>cella3</td>
-		        <td>cella4</td>
-		        <td>cella5</td>
-		        <td>cella6</td>
-		        <td colspan=5 rowspan=2>pit2</td>
+			<tr>
+		        <td colspan=5 rowspan=2 id="B-HOME">0</td>
+				<td colspan=2 id="B6">0</td>
+		        <td colspan=2 id="B5">0</td>
+		        <td colspan=2 id="B4">0</td>
+				<td colspan=2 id="B3">0</td>				
+				<td colspan=2 id="B2">0</td>
+				<td colspan=2 id="B1">0</td>
+		        <td colspan=5 rowspan=2 id="A-HOME">0</td>
 		    </tr>
-		    <tr>
-		        <td>cellb1</td>
-		        <td>cellb2</td>
-		        <td>cellb3</td>
-		        <td>cellb4</td>
-		        <td>cellb5</td>
-		        <td>cellb6</td>
+		    <tr>			
+		        <td colspan=2 id="A1">0</td>
+		        <td colspan=2 id="A2">0</td>
+				<td colspan=2 id="A3">0</td>
+				<td colspan=2 id="A4">0</td>
+				<td colspan=2 id="A5">0</td>
+				<td colspan=2 id="A6">0</td>
 		    </tr>
-		<!--    <tr>-->
-		<!--        <td colspan=10>50</td>-->
-		<!--        <td colspan=6>30</td>-->
-		<!--        <td colspan=4>20</td>-->
-		<!--    </tr>-->
 		</table>
+		 <label id="instructions">Click on the pit you want move.</label>
     </div>
 </div>
 
